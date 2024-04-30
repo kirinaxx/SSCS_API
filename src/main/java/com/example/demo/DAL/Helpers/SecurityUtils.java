@@ -6,12 +6,13 @@ import java.security.NoSuchAlgorithmException;
 /*A utility class for security features such as password hashing*/
 public class SecurityUtils {
 
-    /*
-    Generates a SHA-512 hash for the given input string.*
-    @param input the input string to be hashed
-    @return the SHA-512 hash of the input string
-    @throws NoSuchAlgorithmException if the SHA-512 algorithm is not available
-    */
+    /**
+     * Generates a SHA-512 hash for the given input string.
+     *
+     * @param input the input string to be hashed
+     * @return the SHA-512 hash of the input string
+     * @throws NoSuchAlgorithmException if the SHA-512 algorithm is not available
+     */
     public static String generateHash(String input) throws NoSuchAlgorithmException {// Create a MessageDigest instance for SHA-512
         MessageDigest digest = MessageDigest.getInstance("SHA-512");
 
