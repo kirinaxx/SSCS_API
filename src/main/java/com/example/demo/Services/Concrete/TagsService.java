@@ -3,14 +3,17 @@ package com.example.demo.Services.Concrete;
 import com.example.demo.DAL.Interfaces.TagsRepository;
 import com.example.demo.Services.Interface.ITagsService;
 import com.example.demo.Tables.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.sql.*;
 import java.util.List;
 import java.util.logging.Logger;
 
+@Service
 public class TagsService implements ITagsService {
     private final TagsRepository _tagsRepository;
-
+    @Autowired
     public TagsService(TagsRepository _tagsRepository) {
         this._tagsRepository = _tagsRepository;
     }
