@@ -12,7 +12,7 @@ public class Tags_Posts {
     @Column(name = "TagId")
     Long tagId;
     @ManyToOne
-    @MapsId("studentId")
+    @MapsId("postId")
     @JoinColumn(name = "PostId")
     Post post;
 

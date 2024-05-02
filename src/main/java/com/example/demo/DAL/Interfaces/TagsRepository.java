@@ -10,6 +10,6 @@ import java.util.List;
 public interface TagsRepository extends JpaRepository<Tag, Long> {
 
     @Query("DELETE FROM Tag t " +
-            "WHERE t.id in (?)")
+            "WHERE t.id in (:tags)")
     void RemoveTagsByTagName(String[] tags);
 }

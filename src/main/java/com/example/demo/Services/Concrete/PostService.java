@@ -3,12 +3,12 @@ package com.example.demo.Services.Concrete;
 import com.example.demo.DAL.Interfaces.PostRepository;
 import com.example.demo.Services.Interface.IPostService;
 import com.example.demo.Tables.Post;
+import com.example.demo.Tables.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PostService implements IPostService {
@@ -48,9 +48,19 @@ public class PostService implements IPostService {
         return posts;
     }
 
-    @Override
-    public Post InsertPost(Post post) {
-        return _postRepository.save(post);
+    public Post InsertPost(Post post, List<Tag> tags) {
+        try {
+
+            _postRepository.save(post);
+            for (Tag tag : tags) {
+                _postRepository.InsertTagPostRelationship(tag.getId(), post.getId());
+            }
+            return post;
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
     }
 
     @Override

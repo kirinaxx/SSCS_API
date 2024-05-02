@@ -3,8 +3,12 @@ package com.example.demo.Controllers;
 
 
 import com.example.demo.Services.Concrete.PostService;
+import com.example.demo.Services.Concrete.TagsService;
 import com.example.demo.Services.Interface.IPostService;
+import com.example.demo.Services.Interface.ITagsService;
 import com.example.demo.Tables.Post;
+import com.example.demo.Tables.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -12,40 +16,44 @@ import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping(value="/api/posts")
 public class PostController {
-    private final IPostService _postService;
 
+    private final IPostService _postService;
+    @Autowired
     public PostController(PostService postService) {
+
         _postService = postService;
     }
 
-    @GetMapping
+    @GetMapping(value="allposts")
     public List<Post> getAllPosts() {
         return _postService.GetAllPosts();
     }
 
-    @GetMapping("/{parentId}")
+    @GetMapping(value="/byparent/{parentId}")
     public List<Post> getAllPosts(@PathVariable Long parentId) {
         return _postService.GetPostsByParentID(parentId);
     }
 
-    @PostMapping
-    public List<Post> getAllPosts(@RequestBody long[] tagIds) {
+    @PostMapping(value="/bytags")
+    public List<Post> getAllPostsByTags(@RequestBody long[] tagIds) {
         return _postService.GetPostsByTagIds(tagIds);
     }
-    @PostMapping
-    public void addPost(@RequestBody Post post) {
-        _postService.InsertPost(post);
+    @PostMapping(value="/addpost")
+    public void addPost(@RequestBody Post post, @RequestBody List<Tag> tags) {
+        post.setDate(new Date());
+        _postService.InsertPost(post, tags);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/updatepost/{id}")
     public void updatePost(@PathVariable Long id, @RequestBody Post post) {
         Post existingPost = _postService.GetPostByPostID(id);
         if (existingPost != null) {
@@ -53,7 +61,7 @@ public class PostController {
             _postService.UpdatePost(post);
         }
     }
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletepost/{id}")
     public void deletePost(@PathVariable Long id) {
         Post existingPost = _postService.GetPostByPostID(id);
         _postService.DeletePost(existingPost);

@@ -26,7 +26,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User GetUserByUserId(long userId) {
+    public User GetUserByUserId(int userId) {
         return _userRepository.findById(userId).orElse(null);
     }
 

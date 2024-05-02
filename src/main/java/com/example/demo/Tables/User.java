@@ -1,23 +1,27 @@
 package com.example.demo.Tables;
 
-import java.util.Date;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name="UserInfo")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer Id;
+    @Column(name="UserName", nullable = true)
     private String UserName;
+    @Column(name="FirstName", nullable = true)
     private String FirstName;
+    @Column(name="LastName", nullable = true)
     private String LastName;
+    @Column(name="SchoolStatus", nullable = true)
     private String SchoolStatus;
+    @Column(name="RoleID", nullable = true)
     private Long RoleID;
-    private boolean AutoTranslate;
-    private boolean Notifications;
+    @Column(name="AutoTranslate", nullable = true)
+    private Boolean AutoTranslate;
+    @Column(name="Notification", nullable = true)
+    private Boolean Notifications;
 
     public String getSchoolStatus() {
         return SchoolStatus;
@@ -35,7 +39,7 @@ public class User {
         RoleID = roleID;
     }
 
-    public boolean isAutoTranslate() {
+    public Boolean isAutoTranslate() {
         return AutoTranslate;
     }
 
@@ -43,7 +47,7 @@ public class User {
         AutoTranslate = autoTranslate;
     }
 
-    public boolean isNotifications() {
+    public Boolean isNotifications() {
         return Notifications;
     }
 
@@ -84,18 +88,18 @@ public class User {
         this.LastName = lastName;
     }
 
-    public Long getId() {
-        return id;
+    public Integer getId() {
+        return Id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Integer id) {
+        this.Id = id;
     }
 
     @Override
     public String toString()
     {
-        return "User ID: " + this.id + "\nUser Name: " + this.UserName + "\n";
+        return "User ID: " + this.Id + "\nUser Name: " + this.UserName + "\n";
     }
 
 }

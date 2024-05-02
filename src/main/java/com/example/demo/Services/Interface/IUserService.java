@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IUserService {
     List<User> GetAllUsers();
-    User GetUserByUserId(long userId);
+    User GetUserByUserId(int userId);
     User GetUserByUserName(String userName);
     User InsertUser(User user);
     boolean RemoveUser(User user);
