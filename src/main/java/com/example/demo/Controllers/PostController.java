@@ -48,9 +48,16 @@ public class PostController {
         return _postService.GetPostsByTagIds(tagIds);
     }
     @PostMapping(value="/addpost")
-    public void addPost(@RequestBody Post post, @RequestBody List<Tag> tags) {
+    public boolean addPost(@RequestBody Post post, @RequestBody List<Tag> tags) {
         post.setDate(new Date());
-        _postService.InsertPost(post, tags);
+        try {
+            _postService.InsertPost(post, tags);
+            return true;
+        }
+        catch(Exception ex)
+        {
+            return false;
+        }
     }
 
     @PutMapping("/updatepost/{id}")
