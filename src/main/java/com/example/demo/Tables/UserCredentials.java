@@ -8,61 +8,63 @@ public class UserCredentials {
 
     @jakarta.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
+    private Integer id;
     @Column(name="UserId", nullable = false)
-    private String UserId;
+    private Integer userId;
     @Column(name="UserLogin", nullable = true)
-    private String UserLogin;
+    private String userLogin;
     @Column(name="UserPassword", nullable = true)
-    private String UserPassword;
+    private String userPassword;
     @Column(name="UserHash", nullable = true)
-    private String UserHash;
+    private String userHash;
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
-    public String getUserId() {
-        return UserId;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUserId(String userId) {
-        UserId = userId;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getUserLogin() {
-        return UserLogin;
+        return userLogin;
     }
 
     public void setUserLogin(String userLogin) {
-        UserLogin = userLogin;
+        this.userLogin = userLogin;
     }
 
     public String getUserPassword() {
-        return UserPassword;
+        return userPassword;
     }
 
     public void setUserPassword(String userPassword) {
-        UserPassword = userPassword;
+        this.userPassword = userPassword;
     }
 
     public String getUserHash() {
-        return UserHash;
+        return userHash;
     }
 
     public void setUserHash(String userHash) {
-        UserHash = userHash;
+        this.userHash = userHash;
     }
 
-    public UserCredentials(Integer id, String userId, String userLogin, String userPassword, String userHash) {
-        Id = id;
-        UserId = userId;
-        UserLogin = userLogin;
-        UserPassword = userPassword;
-        UserHash = userHash;
+    public UserCredentials()
+    { }
+    public UserCredentials(Integer id, Integer userId, String userLogin, String userPassword, String userHash) {
+        this.id = id;
+        this.userId = userId;
+        this.userLogin = userLogin;
+        this.userPassword = userPassword;
+        this.userHash = userHash;
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.demo.Services.Interface;
 
 import com.example.demo.Tables.Role;
 import com.example.demo.Tables.User;
+import com.example.demo.Tables.UserCredentials;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface IUserService {
     Role GetRoleByRoleId(long roleId);
     boolean InsertRoles(String[] roles);
     boolean RemoveRole(Role role);
+
+    User Login(UserCredentials user);
+    User Signup(UserCredentials userCredentials, User user);
 }

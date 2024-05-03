@@ -1,10 +1,12 @@
 package com.example.demo.Services.Concrete;
 
 import com.example.demo.DAL.Interfaces.RoleRepository;
+import com.example.demo.DAL.Interfaces.UserCredentialsRepository;
 import com.example.demo.DAL.Interfaces.UserRepository;
 import com.example.demo.Services.Interface.IUserService;
 import com.example.demo.Tables.Role;
 import com.example.demo.Tables.User;
+import com.example.demo.Tables.UserCredentials;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,10 +15,12 @@ import java.util.List;
 @Service
 public class UserService implements IUserService {
     private final com.example.demo.DAL.Interfaces.UserRepository _userRepository;
+    private final UserCredentialsRepository _userCredentialsRepository;
     private final RoleRepository _roleRepository;
 
-    public UserService(UserRepository _userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository _userRepository, UserCredentialsRepository userCredentialsRepository, RoleRepository roleRepository) {
         this._userRepository = _userRepository;
+        _userCredentialsRepository = userCredentialsRepository;
         _roleRepository = roleRepository;
     }
 
@@ -93,6 +97,26 @@ public class UserService implements IUserService {
         catch(Exception ex)
         {
             return false;
+        }
+    }
+
+    @Override
+    public User Login(UserCredentials user) {
+        User foundUser = _userRepository.login(user.getUserLogin(), user.getUserHash());
+        return foundUser;
+    }
+
+    @Override
+    public User Signup(UserCredentials userCredentials, User user) {
+        try {
+            User newUser = InsertUser(user);
+            userCredentials.setUserId(newUser.getId());
+            _userCredentialsRepository.save(userCredentials);
+            return newUser;
+        }
+        catch (Exception ex)
+        {
+            return null;
         }
     }
 }

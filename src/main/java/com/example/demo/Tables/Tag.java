@@ -1,6 +1,5 @@
 package com.example.demo.Tables;
 
-import java.util.Date;
 import java.util.Set;
 
 import jakarta.persistence.*;
@@ -9,8 +8,10 @@ import jakarta.persistence.*;
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String Tag;
+    private int id;
+
+    @Column(name="Tag", nullable = true)
+    private String tag;
 
     @OneToMany(mappedBy = "tag")
     Set<Tags_Posts> tagsPosts;
@@ -18,28 +19,28 @@ public class Tag {
     }
 
     public Tag(String Tag) {
-        this.Tag = Tag;
+        this.tag = Tag;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getTag() {
-        return Tag;
+        return tag;
     }
 
     public void setTag(String tag) {
-        this.Tag = tag;
+        this.tag = tag;
     }
     @Override
     public String toString()
     {
-        return "Tag ID: " + this.id + "\nTag: " + this.Tag + "\n";
+        return "Tag ID: " + this.id + "\nTag: " + this.tag + "\n";
     }
 
 }

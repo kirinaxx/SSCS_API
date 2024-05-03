@@ -1,6 +1,7 @@
 package com.example.demo.Services.Concrete;
 
 import com.example.demo.DAL.Interfaces.PostRepository;
+import com.example.demo.DAL.Interfaces.TagsRepository;
 import com.example.demo.Services.Interface.IPostService;
 import com.example.demo.Tables.Post;
 import com.example.demo.Tables.Tag;
@@ -8,14 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService implements IPostService {
     private final PostRepository _postRepository;
+    private final TagsRepository _tagRepository;
     @Autowired
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, TagsRepository tagRepository) {
         _postRepository = postRepository;
+        _tagRepository = tagRepository;
     }
 
     @Override
@@ -48,10 +53,13 @@ public class PostService implements IPostService {
         return posts;
     }
 
-    public Post InsertPost(Post post, List<Tag> tags) {
+    public Post InsertPost(Post post, int[] tagIds) {
         try {
 
             _postRepository.save(post);
+            var tags = _tagRepository.findAllById(Arrays.stream(tagIds)
+                    .boxed()
+                    .collect(Collectors.toList()));
             for (Tag tag : tags) {
                 _postRepository.InsertTagPostRelationship(tag.getId(), post.getId());
             }

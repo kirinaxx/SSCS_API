@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface TagsRepository extends JpaRepository<Tag, Long> {
+public interface TagsRepository extends JpaRepository<Tag, Integer> {
 
     @Query("DELETE FROM Tag t " +
             "WHERE t.id in (:tags)")
