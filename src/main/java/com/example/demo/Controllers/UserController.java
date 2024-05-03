@@ -4,10 +4,14 @@ package com.example.demo.Controllers;
 import com.example.demo.Services.Interface.IUserService;
 import com.example.demo.Tables.Post;
 import com.example.demo.Tables.User;
+import com.example.demo.Tables.UserCredentials;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,5 +34,29 @@ public class UserController {
     }
 
 
+    @PostMapping(value="login")
+    public User login(@RequestBody String json) {
+        try {
+            ObjectMapper mapper = new ObjectMapper()
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+            UserCredentials user = mapper.readValue(json, UserCredentials.class);
+            return _userService.Login(user);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    @PostMapping(value="signup")
+    public User SignUp(@RequestBody String json) {
+        try {
+            ObjectMapper mapper = new ObjectMapper()
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+            UserCredentials userCredentials = mapper.readValue(json, UserCredentials.class);
+            User user = mapper.readValue(json, User.class);
+            return _userService.Signup(userCredentials, user);
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

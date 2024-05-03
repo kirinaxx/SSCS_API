@@ -11,7 +11,7 @@ public interface IPostService {
     List<Post> GetPostsByParentID(long parentId);
     Post GetPostByPostID(long postId);
     List<Post> SearchPosts(String[] keywords) ;
-    Post InsertPost(Post post, List<Tag> tags) ;
+    Post InsertPost(Post post, int[] tagIds) ;
     Post UpdatePost(Post post);
     void DeletePost(Post post);
 }

@@ -11,10 +11,13 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    @Query("SELECT u FROM User u WHERE u.UserName = :userName")
+    @Query("SELECT u FROM User u WHERE u.userName = :userName")
     User findByUserName(String userName);
 
+    @Query("SELECT u FROM UserCredentials uc " +
+            "LEFT JOIN User u on u.Id = uc.userId " +
+            "WHERE uc.userLogin = :userLogin AND uc.userHash = :userHash")
+    User login(String userLogin, String userHash);
 
 
-//    User loginUser(String )
 }

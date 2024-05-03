@@ -9,7 +9,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer Id;
     @Column(name="UserName", nullable = true)
-    private String UserName;
+    private String userName;
     @Column(name="FirstName", nullable = true)
     private String FirstName;
     @Column(name="LastName", nullable = true)
@@ -56,11 +56,11 @@ public class User {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        this.userName = userName;
     }
 
     public String getFirstName() {
@@ -83,7 +83,7 @@ public class User {
     }
 
     public User(String userName, String firstName, String lastName) {
-        this.UserName = userName;
+        this.userName = userName;
         this.FirstName = firstName;
         this.LastName = lastName;
     }
@@ -99,7 +99,7 @@ public class User {
     @Override
     public String toString()
     {
-        return "User ID: " + this.Id + "\nUser Name: " + this.UserName + "\n";
+        return "User ID: " + this.Id + "\nUser Name: " + this.userName + "\n";
     }
 
 }
